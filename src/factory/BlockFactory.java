@@ -1,23 +1,26 @@
 package factory;
 
-import di.DependencyInjection;
 import entity.Block;
+import service.chain.BlockchainService;
 
 public class BlockFactory {
 
     public static Block generateBlock(String data, String prevHash) {
 
         final long timestamp = System.currentTimeMillis();
+        final int initialNonce = 0;
 
         return new Block(
                 prevHash,
                 data,
                 timestamp,
-                DependencyInjection.getBlockchain().calculateHash(
+                BlockchainService.calculateHash(
                         prevHash,
+                        timestamp,
                         data,
-                        timestamp
-                )
+                        initialNonce
+                ),
+                initialNonce
         );
     }
 }

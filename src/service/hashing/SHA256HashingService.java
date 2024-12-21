@@ -1,4 +1,4 @@
-package hashing;
+package service.hashing;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

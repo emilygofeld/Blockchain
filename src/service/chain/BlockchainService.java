@@ -1,10 +1,11 @@
-package entity;
+package service.chain;
 
 import di.DependencyInjection;
+import entity.Block;
 
 import java.util.ArrayList;
 
-public class Blockchain {
+public class BlockchainService {
 
     // function compares hashes to confirm validity
     public static Boolean isChainValid(ArrayList<Block> blockchain) {
@@ -15,10 +16,11 @@ public class Blockchain {
             currentBlock = blockchain.get(i);
             previousBlock = blockchain.get(i - 1);
 
-            if (!currentBlock.hash().equals(DependencyInjection.getBlockchain().calculateHash(
+            if (!currentBlock.hash().equals(calculateHash(
                     currentBlock.prevHash(),
+                    currentBlock.timestamp(),
                     currentBlock.data(),
-                    currentBlock.timestamp()
+                    currentBlock.nonce()
             ))) {
                 return false;
             }
@@ -29,14 +31,14 @@ public class Blockchain {
         return true;
     }
 
-
-    public String calculateHash (
+    public static String calculateHash (
             final String previousHash,
+            final long timestamp,
             final String data,
-            final long timestamp
+            final int nonce
     ) {
         return DependencyInjection.getHashingService().encryptHash(
-                previousHash + timestamp + data
+                previousHash + timestamp + nonce + data
         );
     }
 }
