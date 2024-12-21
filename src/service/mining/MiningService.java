@@ -5,7 +5,7 @@ import service.chain.BlockchainService;
 
 public class MiningService {
 
-    public Block mineBlock(Block block, int difficulty) {
+    public static Block mineBlock(Block block, int difficulty) {
         String target = new String(new char[difficulty]).replace('\0', '0');
         int nonce = 0;
         String hash;
